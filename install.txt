@@ -1,0 +1,7 @@
+Setup projekta: dotnet new webapi -n "CookingBookApi"
+1: dotnet add package Pomelo.EntityFrameworkCore.MySql --version 5.0.0-alpha.2
+2: dotnet add package Microsoft.EntityFrameworkCore.Tools --version 5.0.4
+3: dotnet add package Microsoft.EntityFrameworkCore.Relational
+4: dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 8.1.1
+AKO SE POJAVI ERROR OKO JSONA;
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson

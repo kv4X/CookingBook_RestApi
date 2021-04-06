@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="ba">
+	<head>
+		<title>MSZ | Meteorološka stanica Zavidovići</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<!-- Fontawesome CSS -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+		<!-- Fonts and icons -->
+		<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700" rel="stylesheet"> 
+		<!-- Reset CSS -->
+		<link rel="stylesheet" href="css/reset.css">
+		<!-- Style CSS -->
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="../style.css">
+		<!-- Responsive  CSS -->
+		<link rel="stylesheet" href="css/responsive.css">
+		<meta property="og:title" content="MSZ | Meteorološka stanica Zavidovići">
+		<meta property="og:description" content="Meteorološki podaci sa stanice dobivaju se svakodnevnim mjerenjima i opažanjima (motrenjima). Podaci opisuju stanje vremena na lokaciji Zavidovići i dostupni su u realnom vremenu.">
+		<meta property="og:image" content="https://msz.ba/assets/img/logo/msz_logo.png">
+		<meta property="og:url" content="https://msz.ba">
+		<meta property="og:site_name" content="MSZ | Meteorološka stanica Zavidovići">		
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css" integrity="sha256-KcCcakqMaamBrTFaxb9tkrP2iq1X8vUnsm86W8pRcgI=" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons-wind.min.css" integrity="sha256-huyMLXBzKbUp+a2DHlEUmuJSmc2SQZiu/jbpELjYGSE=" crossorigin="anonymous" />
+		<link rel="shortcut icon" href="https://msz.ba/assets/img/logo/favicon.png">	
+		<style>
+			.precipProbability{color: white}
+			.wi{color:white;}
+			.table td{color:white;}
+			.todayTempLow{color:white}
+			.todayTempHigh{color:white}
+			.seperator{color:#999}
+			.postotak{color:white}
+			.forecast1DayName{color:white;font-size: 14px;}
+			.forecast2DayName{color:white;font-size: 14px;}
+			.forecast3DayName{color:white;font-size: 14px;}
+			.forecast1precipProbability{color:white}
+			.forecast2precipProbability{color:white}
+			.forecast3precipProbability{color:white}
+		</style>		<style>
+			.table td, .table th { border-top: 1px solid transparent; padding: 0px;    font-size: 14px;}
+		</style>
+	</head>
+	<body>
+		<div class="row">
+			<div class="col-lg-3 col-md-6 col-sm-6 col-12">
+				<div class="col-widget-3" style="background: rgba(0, 0, 0, 0) linear-gradient(to right, rgb(240, 194, 123), rgb(75, 18, 72)) repeat scroll 0% 0%;">
+					<div class="currentWeather">
+						<div class="row align-items-center">
+							<div class="col-lg-2">
+								<div class="temp-desc">
+									<img id="logo2" style="height: 50px;margin-left: 0px;" class="img-fluid" src="https://msz.ba/assets/img/logo/favicon.png">
+								</div>
+							</div>
+							<div class="col-lg-10">
+								<h2 style="text-transform: none;">
+									Meteorološka stanica Zavidovići
+								</h2>
+							</div>
+						</div>
+						<div class="row align-items-center">
+							<div class="col-lg-6">
+								<div class="temp-desc">
+									<h5 style="font-size: 25px" class="weatherTemp"></h5>
+									<p class="weatherCondition" style="font-weight: 600;font-size: 15px; text-transform: none"></p>
+									<p style="font-size:11px;" class="text-center" style="text-transform: capitalize;"><i class="wi wi-rain"></i>&nbsp;Vjerojatnost padavina do <span class="precipProbabilityHour"></span>:00: <span class="precipProbability"></span>%</p>
+								</div>
+							</div>
+							<div class="col-lg-6" style="    top: 20px;text-align: center;font-size:14px">
+									<img id="icon" src="" style="width: 90px; height: 90px;" />
+						<!--		<p style="font-size:1em;" class="text-center" style="text-transform: capitalize;"><i class="wi wi-rain"></i> <span class="precipProbability"></span><span class="postotak" style="font-size:14px">%</span></p>-->
+									<p> <span style="color:#38c6fe;font-weight:500" class="todayTempLow"></span> <span class="seperator">|</span> <span style="color: red;font-weight:500" class="todayTempHigh"></span></p>
+								<br>
+							</div>
+						</div>
+						<!--
+						<table class="table table-borderless">
+						  <tbody>
+							<tr>
+							  <td scope="row" class="forecast1DayName"></td>
+							  <td></td>
+							  <td><img id="weatherIcon1" style="height: 20px;" class="img-fluid" src=""></td>
+							  <td style="float: right;"><span class="forecast1MinTemp" style="font-size: 15px;color:#38c6fe;font-weight:500"></span> | <span class="forecast1MaxTemp" style="color: red;font-weight:500"></span></td>
+							</tr>
+							<tr>
+							  <td scope="row" class="forecast2DayName"></td>
+							  <td></td>
+							  <td><img id="weatherIcon2" style="height: 20px;" class="img-fluid" src=""></td>
+							  <td style="float: right;"><span class="forecast2MinTemp" style="font-size: 15px;color:#38c6fe;font-weight:500"></span> | <span class="forecast2MaxTemp" style="color: red;font-weight:500"></span></td>
+							</tr>
+							<tr>
+							  <td scope="row" class="forecast3DayName"></td>
+							  <td></td>
+							  <td><img id="weatherIcon3" style="height: 20px;" class="img-fluid" src=""></td>
+							  <td style="float: right;"><span class="forecast3MinTemp" style="font-size: 15px;color:#38c6fe;font-weight:500"></span> | <span class="forecast3MaxTemp" style="color: red;font-weight:500"></span></td>
+							</tr>
+						  </tbody>
+						</table>
+						-->
+						<div class="col-md-12" style="margin-top:15px;background: rgba(255, 255, 255, 0.09);">
+							<table>
+								<tbody>
+									<tr>
+										<td class="forecast1DayName"></td>
+										<td class="forecast2DayName"></td>
+										<td class="forecast3DayName"></td>
+									</tr>
+									<tr>
+										<td><img id="weatherIcon1" style="width: 70px;height: 60px;" class="img-fluid" src=""></td>
+										<td><img id="weatherIcon2" style="width: 70px;height: 60px;" class="img-fluid" src=""></td>
+										<td><img id="weatherIcon3" style="width: 70px;height: 60px;" class="img-fluid" src=""></td>
+									</tr>
+									<tr>
+										<td><span class="forecast1MinTemp" style="color:#38c6fe;font-weight:500"></span> | <span class="forecast1MaxTemp" style="color: red;font-weight:500"></span></td>
+										<td><span class="forecast2MinTemp" style="color:#38c6fe;font-weight:500"></span> | <span class="forecast2MaxTemp" style="color: red;font-weight:500;"></span></td>
+										<td><span class="forecast3MinTemp" style="color:#38c6fe;font-weight:500"></span> | <span class="forecast3MaxTemp" style="color: red;font-weight:500"></span></td>
+									</tr>
+									<tr style="font-size: 13px;">
+										<td><i id="foreacastIcon1"></i> <span class="forecast1precipProbability"></span></td>
+										<td><i id="foreacastIcon2"></i> <span class="forecast2precipProbability"></span></td>
+										<td><i id="foreacastIcon3"></i> <span class="forecast3precipProbability"></span></td>
+									</tr>
+								</tbody>
+							</table><br>
+						</div>
+					</div>
+					<div class="weatherforecast">
+						<table class="table" style="overflow: hidden; white-space: nowrap;padding-right:20px;">
+							<tbody>
+								<tr>
+									<td style="text-align: left;width: 100%;"><i class="wi wi-barometer"></i> &nbsp;<span style="margin-left:5px">Pritisak zraka</span></td>
+									<td style="width:100%">
+										<div style="text-align: right;" class="pressureValue temp-m-day"></div>
+									</td>
+								</tr>
+								<tr>
+																		<td style="text-align: left;"><i class="wi wi-humidity"></i> &nbsp;<span style="margin-left:5px">Relativna vlažnost</span></td>
+									<td style="text-align: right;">
+										<div style="text-align: right;" class="humidity temp-m-day"></div>
+									</td>
+								</tr>								
+								<tr>
+									<td style="text-align: left;"><i class="wi wi-strong-wind"></i> &nbsp;<span style="margin-left:-2px">Vjetar</span></td>
+									<td style="text-align: right;">
+										<span style="text-align: right;">
+											<span class="windSpeedValueDirection"></span> &nbsp;|&nbsp;
+											<span class="windSpeedValueMS"></span> | 
+											<span class="windSpeedValueKM"></span>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;"><i class="wi wi-day-sunny"></i> &nbsp;UV indeks</td>
+									<td style="text-align: right;">
+										<span style="text-align: right;">
+											<span class="uv-alert"></span> &nbsp;|&nbsp;								
+											<span class="uv"></span>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;"><i class="wi wi-rain"></i> &nbsp;Padavine danas</td>
+									<td>
+										<div style="text-align: right;" class="dailyrainin temp-m-day"></div>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;"><i class="wi wi-rain"></i> &nbsp;Padavine jučer</td>
+									<td>
+										<div style="text-align: right;" class="yesterdayrainin temp-m-day"></div>
+									</td>
+								</tr>
+								<tr>
+									<td style="text-align: left;padding-bottom: 10px;"><i class="wi wi-time-6"></i> &nbsp;<span style="margin-left:5px">Zadnje ažuriranje</span></td>
+									<td>
+										<div style="text-align: right;" class="updated temp-m-day"></div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- jquery latest version -->
+		<script src="js/jquery.min.js"></script>
+		<!-- popper.min.js -->
+		<script src="js/popper.min.js"></script>    
+		<!-- bootstrap js -->
+		<script src="js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/bs.min.js" integrity="sha512-86Sk7eg6Vt8PLt6/9BaXhk9NmPFyzlSBmAjqpk7JeYgf/f50N5Zq2OVHPjKxlGolWtXNWeaWvREXBOzoNTARFQ==" crossorigin="anonymous"></script>
+		<script src="../assets/js/meteo.js"></script>				
+		<script>
+			function toFixed_norounding(n,p){
+				var result = n.toFixed(p);
+				return result <= n ? result: (result - Math.pow(0.1,p)).toFixed(p);
+			}
+			function uv(uv){
+				if(uv >= 0 && uv <= 2.99){
+					$('.uv-alert').text('Nizak stepen zračenja');
+				}else if(uv >= 3 && uv <= 5.99){
+					$('.uv-alert').text('Umjeren stepen zračenja');
+				}else if(uv >= 6 && uv <= 7.99){
+					$('.uv-alert').text('Visok stepen zračenja');
+				}else if(uv >= 8 && uv <= 10.99){
+					$('.uv-alert').text('Vrlo visok stepen zračenja');
+				}else if(uv >= 11){
+					$('.uv-alert').text('Ekstreman stepen zračenja');
+				}
+			}
+			
+			function update(){
+				$.getJSON("https://msz.ba/api.json", function(data){
+uv(data.current.uv);
+					$('.precipProbability').text(data.forecast[0].precip_probabilityHourly);
+					$('.weatherTemp').text(data.current.air_temperature + '°C');
+					$('.weatherCondition').html(data.current.conditions);
+				//	$('.todayTempLow').text('Min. ' + data.forecast[0].air_temp_low + '°C');
+					$('.todayTempLow').text(data.forecast[0].air_temp_low + '°');
+				// 	$('.todayTempHigh').text('Max. ' + data.forecast[0].air_temp_high + '°C');
+					$('.todayTempHigh').text(data.forecast[0].air_temp_high + '°');
+					
+					$('.humidity').text(data.current.relative_humidity + '%');
+					$('.pressureValue').text(data.current.sea_level_pressure + ' hPa');		
+					
+					$('.windSpeedValueMS').text(toFixed_norounding(data.current.wind_avg, 1) + ' m/s');
+					$('.windSpeedValueKM').text(toFixed_norounding((data.current.wind_avg*3.6), 1) + ' km/h');
+				
+					updateWindDirectionText("windSpeedValueDirection", data.current.wind_direction);
+					$("#weatherIcon1").attr("src", '../assets/img/weathers/w3/'+data.forecast[1].iconWidget);
+					$("#weatherIcon2").attr("src", '../assets/img/weathers/w3/'+data.forecast[2].iconWidget);
+					$("#weatherIcon3").attr("src", '../assets/img/weathers/w3/'+data.forecast[3].iconWidget);
+
+					$('.forecast1MinTemp').text(data.forecast[1].air_temp_low+'°');
+					$('.forecast2MinTemp').text(data.forecast[2].air_temp_low+'°');
+					$('.forecast3MinTemp').text(data.forecast[3].air_temp_low+'°');
+					$('.forecast1MaxTemp').text(data.forecast[1].air_temp_high+'°');
+					$('.forecast2MaxTemp').text(data.forecast[2].air_temp_high+'°');
+					$('.forecast3MaxTemp').text(data.forecast[3].air_temp_high+'°');
+					$('.forecast1precipProbability').text(data.forecast[1].precip_probability00+'%');
+					$('.forecast2precipProbability').text(data.forecast[2].precip_probability00+'%');
+					$('.forecast3precipProbability').text(data.forecast[3].precip_probability00+'%');
+					$('.forecast1DayName').text(data.forecast[1].dayName);
+					$('.forecast2DayName').text(data.forecast[2].dayName);
+					$('.forecast3DayName').text(data.forecast[3].dayName);
+					$('.dailyrainin').text(data.current.precip_accum_local_day + ' mm');
+					$('.yesterdayrainin').text(data.current.precip_accum_local_yesterday + ' mm');
+					$('#foreacastIcon1').addClass(data.forecast[1].precip_icon);
+					$('#foreacastIcon2').addClass(data.forecast[2].precip_icon);
+					$('#foreacastIcon3').addClass(data.forecast[3].precip_icon);
+					$('.uv').text(data.current.uv.toFixed(1));
+					$("#icon").attr("src", 'https://msz.ba/assets/img/weathers/w3/'+data.current.iconWidget);
+					
+					$(".updated").text(moment.unix(data.timestamp).format('dddd, Do MMMM YYYY. HH:mm:ss'));
+					$('.precipProbability').text(data.forecast[0].precip_probabilityHourly);
+					$('.precipProbabilityHour').text(data.forecast[0].precip_probabilityHour);
+				});
+			}
+		
+			$(document).ready(function(){
+				update();
+			});
+
+			setInterval(update, 3000);			
+		</script>
+	</body>
+</html>
