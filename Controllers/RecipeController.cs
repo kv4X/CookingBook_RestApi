@@ -15,9 +15,19 @@ namespace CookingBookApi.Controllers
             _recipeService = recipeService;
         }
 
+/*
         [HttpGet]
         public async Task<IActionResult> Get(){
             var recipes = await _recipeService.Get();
+            return Ok(recipes);
+        }
+
+        */
+
+        [HttpGet]
+        public async Task<IActionResult> Get([FromQuery] RecipeQueryParams recipeParams){
+
+            var recipes = await _recipeService.Get(recipeParams);
             return Ok(recipes);
         }
 

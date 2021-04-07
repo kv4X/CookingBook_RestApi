@@ -21,9 +21,79 @@ namespace CookingBookApi.Services
             _context = context; 
             _mapper = maper;
         }
-        public async Task<IEnumerable<RecipeDto>> Get(){
-            /*var recipes = await _context.Recipes.ToListAsync();
-            return _mapper.Map<IEnumerable<RecipeDto>>(recipes);*/
+        public async Task<RecipesResponsePagination> Get(RecipeQueryParams recipeParams){
+            //Console.WriteLine($"page limit: {recipeParams.limit}!");
+            //Console.WriteLine($"page: {recipeParams.page}!");
+
+            var recipes = await _context.Recipes
+                .Include(r => r.Ingredients)
+                .AsNoTracking()
+                .ToListAsync();
+
+            // page
+            recipeParams.Page = (recipeParams.Page <= 0)? 1: recipeParams.Page;
+            recipeParams.Limit = (recipeParams.Limit <= 0)? 10: recipeParams.Limit;
+            var countRecipes = recipes.Count();
+            var pageCount = (int)recipes.Count() / recipeParams.Limit;
+            
+            //Console.WriteLine($"broj stranica: {pageCount}!");
+            var startRow = (recipeParams.Page - 1) * recipeParams.Limit;
+
+            // sorting
+            switch (recipeParams.SortBy){
+                case "title_asc":
+                    recipes = recipes.OrderBy(s => s.Title).ToList();
+                    break;
+                case "title_desc":  
+                    recipes = recipes.OrderByDescending(s => s.Title).ToList();
+                    break;
+                case "date_asc":
+                    recipes = recipes.OrderBy(s => s.CreatedDate).ToList();
+                    break;
+                case "date_desc":
+                    recipes = recipes.OrderByDescending(s => s.CreatedDate).ToList();
+                    break;
+            }
+            
+            var recipesPaged = recipes.Skip(startRow).Take(recipeParams.Limit);
+            return new RecipesResponsePagination {
+                CurrentPage = recipeParams.Page,
+                TotalPages = pageCount,
+                TotalItems = countRecipes,
+                Results = _mapper.Map<IEnumerable<RecipeDto>>(recipesPaged)
+            };
+            
+            
+            // rucno bez automappera 
+            /*  
+            return new RecipesResponsePagination {
+                CurrentPage = recipeParams.page,
+                TotalPages = pageCount,
+                TotalItems = countRecipes,
+                Results = recipesPaged.Select(p => new RecipeDto
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    CookingTime = p.CookingTime,
+                    PrepTime = p.PrepTime, 
+                    IsPublished = p.IsPublished,
+                    CreatedDate = p.CreatedDate,
+                    UpdatedDate = p.UpdatedDate,
+                    Ingredients = p.Ingredients.Select(i => new IngredientDto{
+                        Id = i.Id,
+                        Name = i.Name,
+                        Description = i.Description
+                    })
+                }).ToList()
+            };
+            */
+            
+        }
+
+        public async Task<IEnumerable<RecipeDto>> GetAll(){
+            //var recipes = await _context.Recipes.ToListAsync();
+            //return _mapper.Map<IEnumerable<RecipeDto>>(recipes);
             var recipes = await _context.Recipes
                 .Include(r => r.Ingredients)
                 .AsNoTracking()
@@ -31,6 +101,8 @@ namespace CookingBookApi.Services
 
             return _mapper.Map<IEnumerable<RecipeDto>>(recipes);
         }
+
+
 /*
 SYNC no no
         public IList<RecipeDto> Get(){
